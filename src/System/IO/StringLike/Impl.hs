@@ -84,23 +84,9 @@ import qualified Data.Text.Lazy.Builder as TB
 --------------------------
 
 {-|
-'CanGetContents' if effectively the following type synonym, for the common case of
-an ordinary 'Handle' in the 'IO' monad like so.
-
-> type CanGetContents t = CanGetContentsClass IO Handle t
-
-The reason why it's defined as a class with a catch all instance instead is so
-modules which use 'CanGetContents' do not have to include the language pragma "FleixbleContexts".
-
-However, this approach requires this module to use the pragma "UndecidableInstances",
-but I figure it's better to add more complexity to the library than to clients.
-
-'CanGet', 'CanGetLine', 'CanPutStr', 'CanPutStrLn' all are similar synonyms with
-the same explanation for their definition so I won't repeat myself.
+Type synonym, for the common case of an ordinary 'Handle' in the 'IO'.
 -}
---type CanGetContents t = CanGetContentsClass IO Handle t
-class    CanGetContentsClass IO Handle t => CanGetContents t
-instance CanGetContentsClass IO Handle t => CanGetContents t
+type CanGetContents t = CanGetContentsClass IO Handle t
 
 class Monad m => CanGetContentsClass m handleT t where
   {-| Generalised 'System.IO.hGetContents' -}
@@ -121,10 +107,8 @@ instance (m ~ IO, CanGetContentsClass m Handle t) => CanGetContentsClass m FileP
 -- CanGetLine class --
 ----------------------
 
-{-| Effective type synonym for 'CanGetLineClass'. See 'CanGetContents' for more details. -}
---type CanGetLine t = CanGetLineClass IO Handle t
-class    CanGetLineClass IO Handle t => CanGetLine t
-instance CanGetLineClass IO Handle t => CanGetLine t
+{-| Type synonym for 'CanGetLineClass'. See 'CanGetContents' for more details. -}
+type CanGetLine t = CanGetLineClass IO Handle t
 
 class CanGetContentsClass m handleT t => CanGetLineClass m handleT t where
   {-| Generalised 'System.IO.hGetLine' -}
@@ -139,10 +123,8 @@ getLine = hGetLine IO.stdin
 -- CanPutStr class --
 ------------------
 
-{-| Effective type synonym for 'CanPutStrClass'. See 'CanGetContents' for more details. -}
---type CanPutStr t = CanPutStrClass IO Handle t
-class    CanPutStrClass IO Handle t => CanPutStr t
-instance CanPutStrClass IO Handle t => CanPutStr t
+{-| Type synonym for 'CanPutStrClass'. See 'CanGetContents' for more details. -}
+type CanPutStr t = CanPutStrClass IO Handle t
 
 class Monad m => CanPutStrClass m handleT t where
   {-| Generalised 'System.IO.hPutStr' -}
@@ -170,9 +152,7 @@ instance (m ~ IO, CanPutStrClass m Handle t) => CanPutStrClass m FilePath t wher
 -------------------------
 
 {-| Effective type synonym for 'CanPutStrLnClass'. See 'CanGetContents' for more details. -}
---type CanPutStrLn t = CanPutStrLnClass IO Handle t
-class    CanPutStrLnClass IO Handle t => CanPutStrLn t
-instance CanPutStrLnClass IO Handle t => CanPutStrLn t
+type CanPutStrLn t = CanPutStrLnClass IO Handle t
 
 class CanPutStrClass m handleT t => CanPutStrLnClass m handleT t where
   {-| Generalised 'System.IO.hPutStrLn' -}

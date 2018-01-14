@@ -1,5 +1,5 @@
 name:                io-string-like
-version:             0.1.0.0
+version:             0.1.0.1
 github:              "clintonmead/io-string-like"
 license:             BSD3
 author:              "Clinton Mead"
@@ -13,7 +13,7 @@ description:
   The functions in the Prelude such as "getContents", "putStr" only work for plain Strings.
 
 
-  There are similar functions in "ByteString" for reading and writing, as well as "Text".
+  There are similar functions in "ByteString" for reading and writing, as well as \"Text\".
 
 
   This requires one to import the appropriate functions, usually qualified, for the
